@@ -1,0 +1,16 @@
+gradio
+torch
+transformers
+langdetect
+nltk
+trafilatura
+markitdown
+kokoro==0.7.11
+soundfile
+numpy
+spacy
+stanza
+wordcloud
+Pillow
+matplotlib
+gliner
