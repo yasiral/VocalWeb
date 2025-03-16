@@ -188,7 +188,4 @@ If you find this project helpful, please consider giving it a **star ⭐** on Gi
 
 ---
 
-## 🔥 Call to Action
-Get started today and transform your web content into clear, engaging audio — ideal for multitaskers, learners, and busy readers alike!
-
 🎧 **"Listen to Your Web Content on the Go!"**
