@@ -18,7 +18,7 @@ def generate_wordcloud(text):
     buf = io.BytesIO()
     plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
     buf.seek(0)
-	image = np.array(Image.open(buf))  # Convert PIL image to NumPy array
+    image = np.array(Image.open(buf))  # Convert PIL image to NumPy array
     plt.close()
 
     #image = Image.open(buf)
