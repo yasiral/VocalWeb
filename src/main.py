@@ -40,11 +40,13 @@ def main():
 
     # Summarization
     if args.summarize:
+        print("✅ Starting Summarization...")
         summary = hierarchical_summarization(text)
         print(f"\nSummary:\n{summary}\n")
 
     # NER
     if args.ner:
+        print("✅ Starting Named Entity Recognition...")
         entities = extract_entities_with_gliner(text, "PERSON, ORGANIZATION, DATE", "")
         print(f"\nNamed Entities:\n{entities}\n")
 
@@ -61,6 +63,7 @@ def main():
         print(f"✅ WordCloud saved successfully at: {os.path.abspath(wordcloud_file)}")
 
     # TTS Generation
+    print("✅ Starting TTS Generation...")
     audio_file = generate_audio_kokoro(text, detected_lang, args.voice)
     print(f"\nAudio saved at: {audio_file}")
 
