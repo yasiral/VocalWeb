@@ -41,8 +41,21 @@ def main():
 
     # Word Cloud
     if args.wordcloud:
+	    print("✅ Starting Word Cloud Generation...")
         wordcloud_image = generate_wordcloud(text)
-        wordcloud_image.show()
+        # Display in Colab or Jupyter Notebook
+       try:
+           plt.figure(figsize=(10, 5))
+           plt.imshow(wordcloud_image)
+           plt.axis("off")
+           plt.show()
+       except Exception:
+        # Fallback for Terminal/CLI
+           print("✅ Displaying WordCloud in separate window...")
+           plt.figure(figsize=(10, 5))
+           plt.imshow(wordcloud_image)
+           plt.axis("off")
+           plt.show()
 
     # TTS Generation
     audio_file = generate_audio_kokoro(text, detected_lang, args.voice)
