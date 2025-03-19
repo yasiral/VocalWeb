@@ -68,6 +68,8 @@ def main():
     if args.tts:
         try:
             print("✅ Starting TTS Generation...")
+	    print("✅ Hang Tight, this might take some time...")
+	    print("✅ Run this feature on a GPU, else a 4 min audio will take 8 minutes on CPU to generate...")
             audio_file = generate_audio_kokoro(text, detected_lang, args.voice)
             print(f"\nAudio saved at: {audio_file}")
         except TimeoutException:
