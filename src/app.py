@@ -8,6 +8,7 @@ from src.services.summarization import hierarchical_summarization
 from src.services.wordcloud_generation import generate_wordcloud
 from src.services.language_detection import detect_language
 from src.config.nltk_setup import download_nltk_dependencies
+from src.services.tts_generation import AVAILABLE_VOICES
 
 download_nltk_dependencies()
 
@@ -19,12 +20,12 @@ with gr.Blocks() as demo:
     voice_selection = gr.Dropdown(AVAILABLE_VOICES, label="Select Voice", value="bm_george")
     tts_option = gr.Radio(["TTS based on Summary", "TTS based on Raw Data"], value="TTS based on Summary", label="Select TTS Source")
 	
-	with gr.Row():
+    with gr.Row():
         process_text_button = gr.Button("Fetch Text & Detect Language",scale = 1)
         process_audio_button = gr.Button("Generate Audio", visible=False,scale = 1)
         process_ner_button = gr.Button("Extract Entities", visible=False,scale = 1)  
 		
-	with gr.Row():
+    with gr.Row():
         extracted_text = gr.Textbox(label="Extracted Content", visible=False, interactive=False, lines=15)
         metadata_output = gr.JSON(label="Article Metadata", visible=False)
         wordcloud_output = gr.Image(label="Word Cloud", visible=False)
@@ -35,7 +36,7 @@ with gr.Blocks() as demo:
     full_audio_output = gr.Audio(label="Generated Audio", visible=True)
     ner_output = gr.Textbox(label="Extracted Entities", visible=True, interactive=False)  
     
-	default_entity_types = gr.Textbox(label="Default Entity Types", value="PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, EVENT", interactive=True)
+    default_entity_types = gr.Textbox(label="Default Entity Types", value="PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, EVENT", interactive=True)
     custom_entity_types = gr.Textbox(label="Custom Entity Types", placeholder="Enter additional entity types (comma-separated)", interactive=True)
 	
 	
