@@ -10,6 +10,8 @@ from src.services.ner_extraction import extract_entities_with_gliner
 from src.services.tts_generation import generate_audio_kokoro
 from src.services.wordcloud_generation import generate_wordcloud
 from src.config.nltk_setup import download_nltk_dependencies
+import IPython.display as display
+import matplotlib.pyplot as plt
 
 download_nltk_dependencies()
 
