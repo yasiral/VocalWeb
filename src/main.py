@@ -2,6 +2,7 @@
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from datetime import datetime
 import argparse
 from src.services.text_extraction import fetch_and_display_content
 from src.services.language_detection import detect_language
@@ -43,21 +44,15 @@ def main():
 
     # Word Cloud
     if args.wordcloud:
-	    print("✅ Starting Word Cloud Generation...")
-        wordcloud_image = generate_wordcloud(text)
-        # Display in Colab or Jupyter Notebook
-       try:
-           plt.figure(figsize=(10, 5))
-           plt.imshow(wordcloud_image)
-           plt.axis("off")
-           plt.show()
-       except Exception:
-        # Fallback for Terminal/CLI
-           print("✅ Displaying WordCloud in separate window...")
-           plt.figure(figsize=(10, 5))
-           plt.imshow(wordcloud_image)
-           plt.axis("off")
-           plt.show()
+        print("✅ Starting Word Cloud Generation...")
+    
+        # Define a unique filename with timestamp
+        wordcloud_file = f"wordcloud_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+
+        # Save the WordCloud in the root directory
+        generate_wordcloud(cleaned_text, save_path=wordcloud_file)
+    
+        print(f"✅ WordCloud saved successfully at: {os.path.abspath(wordcloud_file)}")
 
     # TTS Generation
     audio_file = generate_audio_kokoro(text, detected_lang, args.voice)
