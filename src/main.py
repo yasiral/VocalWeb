@@ -32,6 +32,12 @@ def main():
     print(f"\nExtracted Content:\n{text}\n")
     print(f"Detected Language: {detected_lang.upper()}")
 
+    # Display Metadata
+    if metadata:
+        print(f"\nMetadata:\n{metadata}\n")
+    else:
+        print("\nNo metadata found.\n")
+
     # Summarization
     if args.summarize:
         summary = hierarchical_summarization(text)
