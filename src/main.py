@@ -24,6 +24,8 @@ def main():
     parser.add_argument("--ner", action="store_true", help="Enable Named Entity Recognition")
     parser.add_argument("--summarize", action="store_true", help="Enable Summarization")
     parser.add_argument("--wordcloud", action="store_true", help="Generate Word Cloud")
+    parser.add_argument("--tts", action="store_true", help="Enable Text-to-Speech (TTS) generation")
+
     
     args = parser.parse_args()
 
@@ -63,9 +65,13 @@ def main():
         print(f"✅ WordCloud saved successfully at: {os.path.abspath(wordcloud_file)}")
 
     # TTS Generation
-    print("✅ Starting TTS Generation...")
-    audio_file = generate_audio_kokoro(text, detected_lang, args.voice)
-    print(f"\nAudio saved at: {audio_file}")
+    if args.tts:
+        try:
+            print("✅ Starting TTS Generation...")
+            audio_file = generate_audio_kokoro(text, detected_lang, args.voice)
+            print(f"\nAudio saved at: {audio_file}")
+        except TimeoutException:
+            print("❌ TTS generation took too long and was terminated.") 
 
 if __name__ == "__main__":
     main()
