@@ -58,7 +58,7 @@ def main():
         wordcloud_file = f"wordcloud_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
 
         # Save the WordCloud in the root directory
-        generate_wordcloud(cleaned_text, save_path=wordcloud_file)
+        generate_wordcloud(text, save_path=wordcloud_file)
     
         print(f"✅ WordCloud saved successfully at: {os.path.abspath(wordcloud_file)}")
 
