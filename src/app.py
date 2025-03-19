@@ -93,4 +93,5 @@ with gr.Blocks() as demo:
         outputs=[ner_output]
     )
 
-demo.launch()
+#demo.launch()
+demo.launch(share=True)
