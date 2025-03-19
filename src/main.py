@@ -25,7 +25,7 @@ def main():
     args = parser.parse_args()
 
     # Fetch text content
-    text, detected_lang = fetch_and_display_content(args.url)
+    text, metadata, detected_lang, *_ = fetch_and_display_content(args.url)
     print(f"\nExtracted Content:\n{text}\n")
     print(f"Detected Language: {detected_lang.upper()}")
 
