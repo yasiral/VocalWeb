@@ -116,6 +116,13 @@ python src/main.py --url "https://example.com/article" --wordcloud
 ```
 
 ---
+### Using on Colab:
+You may need to perform following steps if you are working on colab:
+
+```
+import sys
+sys.path.append('/content/VocalWeb/src')
+```
 
 ## ⚙️ Installation Guide
 ### Step 1: Clone the Repository
