@@ -238,13 +238,6 @@ If you experience issues or need additional functionality, please feel free to:
 
 ---
 ---
-### Using on Colab:
-You may need to perform following steps if you are working on colab:
-
-```
-import sys
-sys.path.append('/content/VocalWeb/src')
-```
 
 ## ⚙️ Installation Guide
 ### Step 1: Clone the Repository
@@ -270,6 +263,13 @@ Run the following command to ensure required resources are available:
 
 ``` 
 python -c "import nltk; nltk.download('punkt'); nltk.download('punkt_tab')"
+```
+### Using on Colab:
+You may need to perform following steps if you are working on colab:
+
+```
+import sys
+sys.path.append('/content/VocalWeb/src')
 ```
 
 ---
@@ -317,7 +317,4 @@ If you find this project helpful, please consider giving it a **star ⭐** on Gi
 
 ---
 
-## 🔥 Call to Action
-Get started today and transform your web content into clear, engaging audio — ideal for multitaskers, learners, and busy readers alike!
 
-🎧 **"Listen to Your Web Content on the Go!"**
