@@ -34,6 +34,8 @@ This application leverages state-of-the-art NLP models like **BART**, **GLiNER**
   - **HTML**
   - **PDF**
   - **DOC** and other common document types.
+ 
+---
 
 ### 📋 3. Summarization
 - Powered by **Facebook's BART Large CNN** model for high-quality text summarization.
