@@ -1,6 +1,7 @@
 # Gradio app entry point
 import sys
 import os
+import torch
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import gradio as gr
 from src.services.text_extraction import fetch_and_display_content
@@ -12,7 +13,12 @@ from src.services.language_detection import detect_language
 from src.config.nltk_setup import download_nltk_dependencies
 from src.services.tts_generation import AVAILABLE_VOICES
 
+
 download_nltk_dependencies()
+
+# Automatically select device based on hardware availability
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"✅ Using {DEVICE.upper()} for TTS and Summarization")
 
 # Gradio Interface
 with gr.Blocks() as demo:
@@ -27,7 +33,7 @@ with gr.Blocks() as demo:
         process_audio_button = gr.Button("Generate Audio", visible=False,scale = 1)
         process_ner_button = gr.Button("Extract Entities", visible=False,scale = 1)  
 		
-    with gr.Row():
+	with gr.Row():
         extracted_text = gr.Textbox(label="Extracted Content", visible=False, interactive=False, lines=15)
         metadata_output = gr.JSON(label="Article Metadata", visible=False)
         wordcloud_output = gr.Image(label="Word Cloud", visible=False)
@@ -38,7 +44,7 @@ with gr.Blocks() as demo:
     full_audio_output = gr.Audio(label="Generated Audio", visible=True)
     ner_output = gr.Textbox(label="Extracted Entities", visible=True, interactive=False)  
     
-    default_entity_types = gr.Textbox(label="Default Entity Types", value="PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, EVENT", interactive=True)
+	default_entity_types = gr.Textbox(label="Default Entity Types", value="PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, EVENT", interactive=True)
     custom_entity_types = gr.Textbox(label="Custom Entity Types", placeholder="Enter additional entity types (comma-separated)", interactive=True)
 	
 	
@@ -64,13 +70,19 @@ with gr.Blocks() as demo:
         outputs=[wordcloud_output],
 		show_progress=True
     )
+	
+	# Step 3: Summarization (Generate Summary Before Enabling TTS Button)
+    def generate_summary_and_enable_tts(text):
+        summary = hierarchical_summarization(text)
+        return summary, gr.update(visible=True)  # Enable the TTS button only after summary is generated
+
 
     # Summarization
     extracted_text.change(
-        hierarchical_summarization,
+        generate_summary_and_enable_tts,
         inputs=[extracted_text],
-        outputs=[summary_output],
-		show_progress=True
+        outputs=[summary_output, process_audio_button],
+        show_progress=True
     )
 
 	# Audio Generation
@@ -92,6 +104,5 @@ with gr.Blocks() as demo:
 		inputs=[extracted_text, default_entity_types, custom_entity_types],
         outputs=[ner_output]
     )
-
 #demo.launch()
 demo.launch(share=True)
