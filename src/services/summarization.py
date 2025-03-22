@@ -1,5 +1,6 @@
 from transformers import BartForConditionalGeneration, BartTokenizer
 import torch
+import os
 from nltk.tokenize import sent_tokenize
 from src.config.nltk_setup import download_nltk_dependencies
 import nltk
@@ -10,11 +11,15 @@ nltk.download("punkt_tab")
 # Ensure NLTK dependencies are downloaded
 download_nltk_dependencies()
 
+# Select device based on hardware availability
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
 model_name = "facebook/bart-large-cnn"
 
 try:
-    tokenizer = BartTokenizer.from_pretrained(model_name)
-    model = BartForConditionalGeneration.from_pretrained(model_name)
+    tokenizer = BartTokenizer.from_pretrained(model_name, cache_dir=os.path.join(os.getcwd(), ".cache"))
+	model = BartForConditionalGeneration.from_pretrained(model_name, cache_dir=os.path.join(os.getcwd(), ".cache")).to(DEVICE)
+
 except Exception as e:
     raise RuntimeError(f"Error loading BART model: {e}")
 
@@ -52,7 +57,32 @@ def summarize_text(text, max_input_tokens=1024, max_output_tokens=200):
 
 def hierarchical_summarization(text):
     """Performs hierarchical summarization by chunking content first."""
+	print(f"✅ Summarization will run on: {DEVICE.upper()}")
+	
+    if len(text) > 10000:
+        print("⚠️ Warning: Large input text detected. Summarization may take longer than usual.")
+
     chunks = split_text_with_optimized_overlap(text)
-    chunk_summaries = [summarize_text(chunk) for chunk in chunks]
+	#Tokenize the input cleaned text
+    encoded_inputs = tokenizer(
+        ["summarize: " + chunk for chunk in chunks],
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+        max_length=1024
+    ).to(DEVICE)
+	
+	#Generate the summary
+    summary_ids = model.generate(
+        encoded_inputs["input_ids"],
+        max_length=200,
+        min_length=50,
+        length_penalty=2.0,
+        num_beams=4,
+        early_stopping=True
+    )
+    
+	#decode the summary generated in above step
+	chunk_summaries = [tokenizer.decode(ids, skip_special_tokens=True) for ids in summary_ids]
     final_summary = " ".join(chunk_summaries)
     return final_summary
