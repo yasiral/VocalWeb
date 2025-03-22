@@ -50,8 +50,7 @@ def main():
     # Summarization
     if args.summarize:
         print("✅ Starting Summarization...")
-        #summary = hierarchical_summarization(text)
-        print(f"\nSummary:\n{summary}\n")
+        print(f"\n(Explicitly Requested Summary):\n{summary}\n")
 
     # NER
     if args.ner:
@@ -78,16 +77,18 @@ def main():
         if args.tts_source == "summary":
             if summary:
                 tts_text = summary
+                print("✅ TTS Source: Using Summary Text")
             else:
                 print("⚠️ Warning: `--tts-source summary` selected, but no summary was generated. Falling back to raw text.")
                 tts_text = text
         else:
             tts_text = text  # Default to raw text
+            print("✅ TTS Source: Using Raw Text")
         try:
             print("✅ Starting TTS Generation...")
             print("✅ Hang Tight, this might take some time...")
             print("✅ Run this feature on a GPU, else a 4 min audio will take 8 minutes on CPU to generate...")
-            audio_file = generate_audio_kokoro(text, detected_lang, args.voice)
+            audio_file = generate_audio_kokoro(tts_text, detected_lang, args.voice)
             print(f"\nAudio saved at: {audio_file}")
         except TimeoutException:
             print("❌ TTS generation took too long and was terminated.") 
