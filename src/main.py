@@ -1,6 +1,7 @@
 # CLI/standalone entry point
 import sys
 import os
+import torch
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from datetime import datetime
 import argparse
