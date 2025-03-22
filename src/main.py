@@ -72,6 +72,7 @@ def main():
         print(f"✅ WordCloud saved successfully at: {os.path.abspath(wordcloud_file)}")
 
     # TTS Generation
+    print(f"🔹 TTS will run on: {'GPU' if torch.cuda.is_available() else 'CPU'}")
     if args.tts:
 	# Select appropriate text for TTS
         if args.tts_source == "summary":
