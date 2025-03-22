@@ -248,7 +248,6 @@ If you experience issues or need additional functionality, please feel free to:
 ✅ Contact the Project Maintainers  
 
 ---
----
 
 ## ⚙️ Installation Guide
 ### Step 1: Clone the Repository
