@@ -8,7 +8,7 @@ from kokoro import KPipeline
 #Automatically select GPU if available, else fallback to CPU
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"✅ Using device: {device.upper()} for TTS generation")
-kokoro_tts = KPipeline(lang_code='a', device="device")  
+kokoro_tts = KPipeline(lang_code='a', device=device)  
 
 SUPPORTED_TTS_LANGUAGES = {
     "en": "a",  
