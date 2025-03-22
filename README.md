@@ -26,14 +26,23 @@ This application leverages state-of-the-art NLP models like **BART**, **GLiNER**
 
 ---
 
-### 📋 2. Summarization
+### 📄 2. LLM-Ready Markdown Extraction
+- VocalWeb automatically structures web data into **Markdown format** for seamless integration into LLM pipelines.
+- Uses **Trafilatura** for web scraping and **MarkItDown** for PDF and DOC conversion.
+- Ensures extracted content is clean, structured, and optimized for language model input.
+- Supports content from:
+  - **HTML**
+  - **PDF**
+  - **DOC** and other common document types.
+
+### 📋 3. Summarization
 - Powered by **Facebook's BART Large CNN** model for high-quality text summarization.
 - Handles **large documents** using an optimized chunking strategy that preserves content flow.
 - Generates concise summaries with clear, structured highlights.
 
 ---
 
-### 🗣️ 3. Text-to-Speech (TTS)
+### 🗣️ 4. Text-to-Speech (TTS)
 - Uses **Kokoro TTS** for high-quality voice synthesis.
 - Supports multiple languages:
   - **English**, **French**, **Hindi**, **Italian**, and **Portuguese**.
@@ -44,7 +53,7 @@ This application leverages state-of-the-art NLP models like **BART**, **GLiNER**
 
 ---
 
-### 🧠 4. Named Entity Recognition (NER)
+### 🧠 5. Named Entity Recognition (NER)
 - Uses **GLiNER** for advanced entity extraction.
 - Identifies key entities such as:
   - **Persons**
@@ -55,13 +64,13 @@ This application leverages state-of-the-art NLP models like **BART**, **GLiNER**
 
 ---
 
-### 🌩️ 5. Word Cloud Generator
+### 🌩️ 6. Word Cloud Generator
 - Provides a **visual representation** of frequently used words in the extracted text.
 - Helps identify dominant themes and key ideas in large content.
 
 ---
 
-### 🔥 6. Flexible User Interface
+### 🔥 7. Flexible User Interface
 - Fully interactive **Gradio UI** for easy usage with buttons, controls, and visual outputs.
 - Includes a **Command Line Interface (CLI)** for advanced users who prefer terminal-based interactions.
 
