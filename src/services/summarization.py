@@ -57,7 +57,7 @@ def summarize_text(text, max_input_tokens=1024, max_output_tokens=200):
 
 def hierarchical_summarization(text):
     """Performs hierarchical summarization by chunking content first."""
-	print(f"✅ Summarization will run on: {DEVICE.upper()}")
+    print(f"✅ Summarization will run on: {DEVICE.upper()}")
 	
     if len(text) > 10000:
         print("⚠️ Warning: Large input text detected. Summarization may take longer than usual.")
@@ -82,7 +82,7 @@ def hierarchical_summarization(text):
         early_stopping=True
     )
     
-	#decode the summary generated in above step
-	chunk_summaries = [tokenizer.decode(ids, skip_special_tokens=True) for ids in summary_ids]
+    #decode the summary generated in above step
+    chunk_summaries = [tokenizer.decode(ids, skip_special_tokens=True) for ids in summary_ids]
     final_summary = " ".join(chunk_summaries)
     return final_summary
