@@ -4,7 +4,7 @@ transformers
 langdetect
 nltk
 trafilatura
-markitdown
+markitdown[all]
 kokoro==0.7.11
 soundfile
 numpy
