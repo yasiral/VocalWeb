@@ -1,4 +1,6 @@
 import gradio as gr
+import io
+import requests  # For Content-Type header checking
 import trafilatura
 from trafilatura import fetch_url, extract
 from markitdown import MarkItDown
@@ -6,6 +8,22 @@ from langdetect import detect
 from src.services.text_cleaning import extract_and_clean_text
 from src.services.language_detection import detect_language
 
+def is_pdf_url(url):
+    """Robustly detects PDF files via URL patterns and Content-Type headers."""
+    # URL Pattern Check
+    if url.endswith(".pdf") or "pdf" in url.lower():
+        return True
+    
+    # Check Content-Type Header (for URLs without '.pdf')
+    try:
+        response = requests.head(url, timeout=10)
+        content_type = response.headers.get('Content-Type', '')
+        if 'application/pdf' in content_type:
+            return True
+    except requests.RequestException:
+        pass  # Ignore errors in Content-Type check
+    
+    return False
 
 def fetch_and_display_content(url):
     """
@@ -17,7 +35,7 @@ def fetch_and_display_content(url):
         raise ValueError(f"❌ Failed to fetch content from URL: {url}")
   
     # Check if the content is a potential PDF
-    if "/pdf/" in url or url.endswith(".pdf"):
+    if is_pdf_url(url):
         converter = MarkItDown(enable_plugins=False)
         try:
             text = converter.convert(url).text_content
