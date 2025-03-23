@@ -33,7 +33,7 @@ with gr.Blocks() as demo:
         process_audio_button = gr.Button("Generate Audio", visible=False,scale = 1)
         process_ner_button = gr.Button("Extract Entities", visible=False,scale = 1)  
 		
-	with gr.Row():
+    with gr.Row():
         extracted_text = gr.Textbox(label="Extracted Content", visible=False, interactive=False, lines=15)
         metadata_output = gr.JSON(label="Article Metadata", visible=False)
         wordcloud_output = gr.Image(label="Word Cloud", visible=False)
@@ -44,7 +44,7 @@ with gr.Blocks() as demo:
     full_audio_output = gr.Audio(label="Generated Audio", visible=True)
     ner_output = gr.Textbox(label="Extracted Entities", visible=True, interactive=False)  
     
-	default_entity_types = gr.Textbox(label="Default Entity Types", value="PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, EVENT", interactive=True)
+    default_entity_types = gr.Textbox(label="Default Entity Types", value="PERSON, ORGANIZATION, LOCATION, DATE, PRODUCT, EVENT", interactive=True)
     custom_entity_types = gr.Textbox(label="Custom Entity Types", placeholder="Enter additional entity types (comma-separated)", interactive=True)
 	
 	
