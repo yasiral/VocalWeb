@@ -18,7 +18,7 @@ model_name = "facebook/bart-large-cnn"
 
 try:
     tokenizer = BartTokenizer.from_pretrained(model_name, cache_dir=os.path.join(os.getcwd(), ".cache"))
-	model = BartForConditionalGeneration.from_pretrained(model_name, cache_dir=os.path.join(os.getcwd(), ".cache")).to(DEVICE)
+    model = BartForConditionalGeneration.from_pretrained(model_name, cache_dir=os.path.join(os.getcwd(), ".cache")).to(DEVICE)
 
 except Exception as e:
     raise RuntimeError(f"Error loading BART model: {e}")
